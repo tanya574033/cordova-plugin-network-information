@@ -70,6 +70,10 @@ public class NetworkManager extends CordovaPlugin {
     public static final String LTE = "lte";
     public static final String UMB = "umb";
     public static final String HSPA_PLUS = "hspa+";
+    // 5G network types
+    public static final String FIVE_G = "5g";
+    public static final String NR = "nr";
+    public static final String NRNSA = "nr_nsa";
     // return type
     public static final String TYPE_UNKNOWN = "unknown";
     public static final String TYPE_ETHERNET = "ethernet";
@@ -78,6 +82,7 @@ public class NetworkManager extends CordovaPlugin {
     public static final String TYPE_2G = "2g";
     public static final String TYPE_3G = "3g";
     public static final String TYPE_4G = "4g";
+    public static final String TYPE_5G = "5g";
     public static final String TYPE_NONE = "none";
 
     private static final String LOG_TAG = "NetworkManager";
@@ -290,6 +295,11 @@ public class NetworkManager extends CordovaPlugin {
                     type.equals(HSPA_PLUS) ||
                     type.equals(FOUR_G)) {
                 return TYPE_4G;
+            } else if (type.equals(NR) ||
+                    type.equals(NRNSA) ||
+                    type.equals(FIVE_G) ||
+                    info.getSubtype() == 20) { // 20 == NETWORK_TYPE_NR
+                return TYPE_5G;
             }
         }
         return TYPE_UNKNOWN;
